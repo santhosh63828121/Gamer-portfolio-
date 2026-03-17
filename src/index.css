@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+
+    --card: 220 30% 8%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 220 30% 5%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 187 85% 53%;
+    --primary-foreground: 222 47% 11%;
+
+    --secondary: 45 93% 56%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 187 85% 53%;
+    --accent-foreground: 222 47% 11%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 187 50% 30%;
+    --input: 217 33% 17%;
+    --ring: 187 85% 53%;
+
+    --radius: 0.25rem;
+
+    --map-bg: 222 47% 11%;
+    --parchment: 215 28% 17%;
+    --gold: 45 93% 56%;
+    --mana: 187 85% 53%;
+    --glow-mana: 187 85% 53%;
+    --glow-gold: 45 93% 56%;
+
+    --sidebar-background: 220 30% 8%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 187 85% 53%;
+    --sidebar-primary-foreground: 222 47% 11%;
+    --sidebar-accent: 217 33% 17%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 187 50% 30%;
+    --sidebar-ring: 187 85% 53%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'JetBrains Mono', monospace;
+    text-rendering: optimizeLegibility;
+    overflow: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Silkscreen', cursive;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* Hide scrollbar globally */
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--card));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--mana) / 0.5);
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  .obsidian-panel {
+    background: hsl(var(--card) / 0.92);
+    border: 1px solid hsl(var(--mana) / 0.4);
+    box-shadow: 
+      0 0 20px hsl(var(--mana) / 0.15),
+      0 25px 50px -12px rgba(0,0,0,0.8),
+      inset 0 1px 0 hsl(var(--mana) / 0.1);
+    clip-path: polygon(
+      0 12px, 12px 0, calc(100% - 12px) 0, 100% 12px,
+      100% calc(100% - 12px), calc(100% - 12px) 100%,
+      12px 100%, 0 calc(100% - 12px)
+    );
+  }
+
+  .dungeon-glow {
+    filter: drop-shadow(0 0 12px hsl(var(--mana) / 0.6));
+    transition: filter 0.3s ease, transform 0.3s ease;
+  }
+  .dungeon-glow:hover {
+    filter: drop-shadow(0 0 25px hsl(var(--mana) / 0.9)) brightness(1.2);
+    transform: scale(1.1);
+  }
+
+  .mana-bar {
+    background: hsl(var(--muted));
+    overflow: hidden;
+    position: relative;
+  }
+  .mana-bar-fill {
+    background: linear-gradient(90deg, hsl(var(--mana)), hsl(var(--mana) / 0.7));
+    box-shadow: 0 0 8px hsl(var(--mana) / 0.5);
+    transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .gold-border-bottom {
+    border-bottom: 2px solid hsl(var(--gold) / 0.6);
+    box-shadow: 0 2px 8px hsl(var(--gold) / 0.2);
+  }
+
+  .rpg-tooltip {
+    background: hsl(var(--card) / 0.95);
+    border: 1px solid hsl(var(--gold) / 0.6);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    clip-path: polygon(
+      0 6px, 6px 0, calc(100% - 6px) 0, 100% 6px,
+      100% calc(100% - 6px), calc(100% - 6px) 100%,
+      6px 100%, 0 calc(100% - 6px)
+    );
+  }
+
+  .pixel-avatar {
+    image-rendering: pixelated;
+    border: 2px solid hsl(var(--gold));
+    box-shadow: 0 0 10px hsl(var(--gold) / 0.4);
+  }
+
+  .relic-card {
+    @apply obsidian-panel;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .relic-card:hover {
+    border-color: hsl(var(--gold) / 0.6);
+    box-shadow: 
+      0 0 20px hsl(var(--gold) / 0.2),
+      0 25px 50px -12px rgba(0,0,0,0.8);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'Silkscreen', cursive;
+  }
+  .font-data {
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .text-gold {
+    color: hsl(var(--gold));
+  }
+  .text-mana {
+    color: hsl(var(--mana));
+  }
+  .bg-map {
+    background-color: hsl(var(--map-bg));
+  }
+  .border-mana {
+    border-color: hsl(var(--mana) / 0.4);
+  }
+  .border-gold {
+    border-color: hsl(var(--gold) / 0.6);
+  }
+  .glow-mana {
+    box-shadow: 0 0 15px hsl(var(--mana) / 0.4);
+  }
+  .glow-gold {
+    box-shadow: 0 0 15px hsl(var(--gold) / 0.4);
+  }
+}
